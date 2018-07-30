@@ -1,0 +1,50 @@
+---
+- hosts: sftp-server
+  become: true
+
+  vars:
+    ansible_port: 22
+    ansible_ssh_pass: ## insert Root user password
+    ansible_become_pass: ## insert root user password
+    ansible_user: root
+
+  tasks:
+
+  - name: Add user {{ sftp_user }} to the machine
+    user:
+      name="{{ sftp_user }}"
+      password="{{sftp_password |password_hash('sha512') }}"
+      state=present
+      groups="root"
+    update_password: on_create
+
+  - name: Add user ssh to the machine
+    user:
+      name=ssh
+      password=sshpass
+      state=present
+      groups="root"
+    update_password: on_create
+
+  - name: Ensure /sftp directory exists
+    file: path="/sftp" state=directory
+
+  - name: Ensure /sftp/{{ sftp_user }} directory exists
+    file: path="/sftp/{{ sftp_user }}" state=directory    
+
+  - name: Copy sshd_conf file over to machine
+    copy:
+      src: "{{ conf_file }}"
+      dest: "/etc/ssh/"
+
+  - name: ensure ssh Service is Running
+    systemd:
+      name: sshd.service
+      state: restarted
+      enabled: True
+  
+  - name: Make sure directory is owned by {{ sftp_user}}
+    command: chown {{ sftp_user}}:{{ sftp_user}} /sftp/{{ sftp_user }}
+
+ 
+  
