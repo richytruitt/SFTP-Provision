@@ -1,6 +1,18 @@
 # SFTP-Provision
 This program uses Python and Ansible to provision an SFTP server for any given user. This will take in three parameters and will use them to create an SFTP server with that user and password combination. 
 
+##Installing Ansible
+Ansible Can not be run from a Windows platform so you must use some distro of OSX or Linux. 
+### Ubuntu:
+```
+$ sudo apt-get update
+$ sudo apt-get install software-properties-common
+$ sudo apt-add-repository ppa:ansible/ansible
+$ sudo apt-get update
+$ sudo apt-get install ansible
+```
+
+
 ## Before running the script
 Before running the script you must modify playbooks/sftp.yml. You will need to change the parameter for
 
