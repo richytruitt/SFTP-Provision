@@ -7,8 +7,8 @@ Before running the script you must modify playbooks/sftp.yml. You will need to c
 ```
 vars:
    ansible_port: 22
-   ansible_ssh_pass: _<root password>_
-   ansible_become_pass: _<root password>_
+   ansible_ssh_pass: _root password_
+   ansible_become_pass: _root password_
    ansible_user: root
 ```
 
