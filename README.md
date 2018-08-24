@@ -7,10 +7,12 @@ Before running the script you must modify playbooks/sftp.yml. You will need to c
 ```
 vars:
    ansible_port: 22
-   ansible_ssh_pass: _root password_
-   ansible_become_pass: _root password_
+   ansible_ssh_pass: <root password>
+   ansible_become_pass: <root password>
    ansible_user: root
 ```
+
+Before running this script you must also make sure that you have ssh'd into the SFTO server to make sure the host machines fingerprint is on the SFTP server prior to running. 
 
 ## Running the Script
 To run this script you will need three parameters. 
